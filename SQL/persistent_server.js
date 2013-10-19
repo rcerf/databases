@@ -1,4 +1,7 @@
-var mysql = require('mysql');
+var mysql = require('mysql'),
+    server = require('../basic-server'),
+    handler = require('../request-handler'),
+    url = require('url');
 /* If the node mysql module is not found on your system, you may
  * need to do an "sudo npm install -g mysql". */
 
@@ -6,8 +9,8 @@ var mysql = require('mysql');
  * database: "chat" specifies that we're using the database called
  * "chat", which we created by running schema.sql.*/
 var dbConnection = mysql.createConnection({
-  user: "",
-  password: "",
+  user: "root",
+  password: "plantlife",
   database: "chat"
 });
 
@@ -19,3 +22,35 @@ dbConnection.connect();
 
 /* You already know how to create an http server from the previous
  * assignment; you can re-use most of that code here. */
+
+module.exports.insert = function(data){
+
+  var parsedData = JSON.parse(data);
+
+  var query = "INSERT INTO messages (content, date, room, user)\
+                             VALUES (" + "'" + parsedData.text + "'" + ", "
+                                       + "CURRENT_TIMESTAMP" + ","
+                                       + "'" + parsedData.roomname + "'" + ", "
+                                       + "'" + parsedData.username + "'" + ");";
+
+  dbConnection.query(query, function(err, rows, fields) {
+    if(err) throw (err);
+  });
+
+};
+
+module.exports.retrieve = function() {
+
+  var query = "SELECT * FROM messages";
+
+  dbConnection.query(query, function(err, rows, fields) {
+
+    if (err) throw err;
+
+    console.log(rows);
+
+  });
+
+  // return message;
+
+};

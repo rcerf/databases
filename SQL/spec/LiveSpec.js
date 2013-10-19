@@ -10,9 +10,9 @@ describe("Persistent Node Chat Server", function() {
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
     /* TODO: Fill this out with your mysql username */
-      user: "",
+      user: "root",
     /* and password. */
-      password: "",
+      password: "plantlife",
       database: "chat"
     });
     dbConnection.connect();
@@ -39,6 +39,8 @@ describe("Persistent Node Chat Server", function() {
               /* Now if we look in the database, we should find the
                * posted message there. */
 
+              // Retrieves posted message. 
+              // SELECT content & username from messages where username="Valjean"
               var queryString = "";
               var queryArgs = [];
               /* TODO: Change the above queryString & queryArgs to match your schema design
