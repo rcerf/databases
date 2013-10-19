@@ -46,10 +46,9 @@ module.exports.sendResponse = sendResponse = function(response, data, status){
 };
 
 var collectData = function(response){
-
-  db.retrieve();
-
-  // sendResponse(response, messages, 200);
+  db.retrieve(function(messages){
+    sendResponse(response, messages, 200);
+  });
 };
 
 var storeData = function(request, response){

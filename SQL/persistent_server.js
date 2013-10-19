@@ -39,7 +39,9 @@ module.exports.insert = function(data){
 
 };
 
-module.exports.retrieve = function() {
+module.exports.retrieve = function(callback) {
+
+  var messages;
 
   var query = "SELECT * FROM messages";
 
@@ -47,10 +49,27 @@ module.exports.retrieve = function() {
 
     if (err) throw err;
 
-    console.log(rows);
+    callback(rows);
 
   });
 
-  // return message;
+};
 
+var storeData = function(request, response){
+  var data = "";
+
+  request.on('data', function(chunk){
+    data += chunk;
+  });
+
+  request.on('end', function(){
+    // Now calling a method from persistent_server instead of pushing to messages
+    // messages.push(JSON.parse(data));
+    // fs.writeFileSync('./messages.txt', JSON.stringify(messages));
+
+    db.insert(data);
+
+  });
+
+  // sendResponse(response, null, 201);
 };

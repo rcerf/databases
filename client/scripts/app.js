@@ -18,12 +18,13 @@ $(function(){ // on ready
       console.log(messages);
       for (var i = 0; i < messages.length; i++){
         var mes = messages[i];
+        console.log(mes.content);
         $('.timeline').append($("<div>"));
         $('.timeline > div').last().addClass('post');
         $('.post').last().append($("<span>"));
-        $('.post > span').last().addClass('username').text(mes.username + ": ");
+        $('.post > span').last().addClass('username').text(mes.user + ": ");
         $('.post').last().append($('<span>'));
-        if (followed[mes.username]){
+        if (followed[mes.user]){
           $('.post').last().addClass('followed');
         }
         $('.username').last().on('click', function(){
@@ -37,9 +38,9 @@ $(function(){ // on ready
           }
         });
         $('.post > span').last().addClass('message');
-        $('.message').last().text(mes.text);
-        if (!chatrooms[mes.roomname]) {
-          chatrooms[mes.roomname] = false;
+        $('.message').last().text(mes.content);
+        if (!chatrooms[mes.room]) {
+          chatrooms[mes.room] = false;
         }
       }
       for (var keys in chatrooms){
