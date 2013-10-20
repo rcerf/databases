@@ -8,7 +8,7 @@ var requestListener = function (request, response) {
   var path = url.parse(request.url).pathname;
 
   var routes = {
-    '/classes/messages/': function(){req.handleRequest(request, response);},
+    '/classes/messages': function(){req.handleRequest(request, response);},
     '/' : function(){ req.loadFile(response, __dirname + '/client/index.html', 'text/html');},
     '/styles/styles.css' : function(){ req.loadFile(response, __dirname + '/client/styles/styles.css', 'text/css');},
     // '/bower_components/jquery/jquery.min.js' : function(){ req.loadFile(response, '../client/client/bower_components/jquery/jquery.min.js', 'text/javascript');},

@@ -71,6 +71,7 @@ var storeData = function(request, response){
 };
 
 module.exports.handleRequest = handleRequest = function(request, response) {
+
   var httpVerb = {
     'GET': function() { collectData(response); },
     'POST': function() { storeData(request, response); },
