@@ -25,10 +25,11 @@ dbConnection.connect();
 
 module.exports.insert = function(data){
 
+
   var parsedData = JSON.parse(data);
 
   var query = "INSERT INTO messages (content, date, room, user)\
-                             VALUES (" + "'" + parsedData.text + "'" + ", "
+                             VALUES (" + "'" + parsedData.message + "'" + ", "
                                        + "CURRENT_TIMESTAMP" + ","
                                        + "'" + parsedData.roomname + "'" + ", "
                                        + "'" + parsedData.username + "'" + ");";
@@ -53,23 +54,4 @@ module.exports.retrieve = function(callback) {
 
   });
 
-};
-
-var storeData = function(request, response){
-  var data = "";
-
-  request.on('data', function(chunk){
-    data += chunk;
-  });
-
-  request.on('end', function(){
-    // Now calling a method from persistent_server instead of pushing to messages
-    // messages.push(JSON.parse(data));
-    // fs.writeFileSync('./messages.txt', JSON.stringify(messages));
-
-    db.insert(data);
-
-  });
-
-  // sendResponse(response, null, 201);
 };
